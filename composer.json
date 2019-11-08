@@ -1,0 +1,59 @@
+{
+    "name": "perevorotcom/laraveloctober",
+    "description": "",
+    "keywords": [
+        "framework",
+        "laravel",
+        "octobercms"
+    ],
+    "license": "MIT",
+    "authors": [{
+        "name": "Andrey Lanko",
+        "email": "lanko@perevorot.com"
+    }],
+    "type": "project",
+    "require": {
+	"php": "^7.1.3",
+        "fideloper/proxy": "^4.0",
+        "laravel/framework": "5.8.*",
+        "laravel/tinker": "^1.0",
+        "artesaos/seotools": "^0.10.0",
+        "mcamara/laravel-localization": "^1.2"
+    },
+    "require-dev": {
+	"filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^2.0",
+        "phpunit/phpunit": "^7.0",
+        "barryvdh/laravel-debugbar": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Perevorotcom\\LaravelOctober\\": "src/"
+        },
+        "files": [
+            "src/app/Support/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Perevorotcom\\LaravelOctober\\Providers\\AppServiceProvider",
+                "Perevorotcom\\LaravelOctober\\Providers\\RouteServiceProvider",
+                "Perevorotcom\\LaravelOctober\\Providers\\SEOServiceProvider"
+            ],
+            "aliases": {
+                "Localization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization",
+                "SEO": "Perevorotcom\\LaravelOctober\\Facades\\SEO",
+                "Translate": "Perevorotcom\\LaravelOctober\\Facades\\Translate",
+                "LongreadBlock": "Perevorotcom\\LaravelOctober\\Classes\\LongreadBlock",
+                "LaravelOctoberModel": "Perevorotcom\\LaravelOctober\\Classes\\LaravelOctoberModel",
+                "TranslatableTrait": "Perevorotcom\\LaravelOctober\\Traits\\Translatable",
+                "AttachmentsTrait": "Perevorotcom\\LaravelOctober\\Traits\\Attachments",
+                "LongreadTrait": "Perevorotcom\\LaravelOctober\\Traits\\Longread",
+                "ModelTrait": "Perevorotcom\\LaravelOctober\\Traits\\Model"
+            }
+        }
+    }
+}
