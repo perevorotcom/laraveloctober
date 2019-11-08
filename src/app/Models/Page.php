@@ -145,7 +145,7 @@ class Page extends \LaravelOctoberModel
         $path=trim(request()->path(), '/').'/';
 
         foreach ($locales as $locale) {
-            if (starts_with($path, $locale.'/')) {
+            if (Str::startsWith($path, $locale.'/')) {
                 $path=substr($path, 3);
             }
         }

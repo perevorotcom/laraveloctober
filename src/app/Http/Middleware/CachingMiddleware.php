@@ -2,6 +2,7 @@
 
 namespace Perevorotcom\LaravelOctober\Http\Middleware;
 
+use Illuminate\Support\Str;
 use DateTime;
 use Closure;
 use Cache;
@@ -65,7 +66,7 @@ class CachingMiddleware
 
             $content=$response->content();
 
-            if(starts_with($response->headers->get('content-type'), 'text/html')) {
+            if(Str::startsWith($response->headers->get('content-type'), 'text/html')) {
                 $content.='<!--cached: '.$cacheKey.' '.$timestamp->format('c').'-->';
             }
 

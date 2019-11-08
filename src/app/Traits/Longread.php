@@ -4,6 +4,7 @@ namespace Perevorotcom\LaravelOctober\Traits;
 
 use Perevorotcom\LaravelOctober\Scopes\TranslatableScope;
 use Perevorotcom\LaravelOctober\Models\SystemFile;
+use Illuminate\Support\Str;
 use Localization;
 use DB;
 
@@ -76,7 +77,7 @@ trait Longread
             foreach ($blocks as $k=>$block) {
                 if (!empty($block->files)) {
                     foreach ($block->files as $field => $file) {
-                        $function=(ends_with($field, 's')?'filter':'first');
+                        $function=(Str::endsWith($field, 's')?'filter':'first');
 
                         $block->value->{$field} = $files->$function(function($systemFile) use($file) {
                             return $systemFile->field==$file;

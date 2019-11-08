@@ -6,6 +6,7 @@ use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Perevorotcom\LaravelOctober\Models\SeoExternal;
 use Perevorotcom\LaravelOctober\Models\SeoTags;
+use Illuminate\Support\Str;
 use Localization;
 use Request;
 use Blade;
@@ -93,7 +94,7 @@ class SEO extends SEOTools
             if ($tag->image) {
                 $image=$this->parseTemplate($tag->image);
 
-                if(!starts_with($image, 'http')) {
+                if(!Str::startsWith($image, 'http')) {
                     $image=env('APP_URL').$image;
                 }
 

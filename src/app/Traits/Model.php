@@ -3,13 +3,14 @@
 namespace Perevorotcom\LaravelOctober\Traits;
 
 use Perevorotcom\LaravelOctober\Models\SystemFile;
+use Illuminate\Support\Str;
 
 trait Model
 {
     public function __call($mutator, $attributes)
     {
         if($this->isAttachmentMutator($mutator)) {
-            return $this->{ends_with($mutator, 's') ? 'hasMany' : 'hasOne'}('Perevorotcom\LaravelOctober\Models\SystemFile', 'attachment_id')
+            return $this->{Str::endsWith($mutator, 's') ? 'hasMany' : 'hasOne'}('Perevorotcom\LaravelOctober\Models\SystemFile', 'attachment_id')
                     ->where('is_public', 1)
                     ->where('attachment_type', $this->getBackendModel($mutator))
                     ->where('field', $mutator);
@@ -21,7 +22,7 @@ trait Model
     public function __get($mutator)
     {
         if($this->isAttachmentMutator($mutator) && !array_key_exists($mutator, $this->relations)) {
-            return SystemFile::where('field', $mutator)->where('attachment_id', $this->id)->where('attachment_type', $this->getBackendModel($mutator))->where('is_public', 1)->orderBy('sort_order', 'ASC')->{ends_with($mutator, 's') ? 'get':'first'}();
+            return SystemFile::where('field', $mutator)->where('attachment_id', $this->id)->where('attachment_type', $this->getBackendModel($mutator))->where('is_public', 1)->orderBy('sort_order', 'ASC')->{Str::endsWith($mutator, 's') ? 'get':'first'}();
         }
 
         if($this->isRicheditorMutator($mutator)) {

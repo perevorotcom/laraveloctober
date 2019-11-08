@@ -3,6 +3,7 @@
 namespace Perevorotcom\LaravelOctober\Classes;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Str;
 
 class LaravelOctoberModel extends EloquentModel
 {
@@ -16,7 +17,7 @@ class LaravelOctoberModel extends EloquentModel
             return true;
         }
 
-        if (method_exists($this, 'isLongreadMutator') && ends_with($mutator, 'Array') && $this->isLongreadMutator(substr($mutator, 0, -5))) {
+        if (method_exists($this, 'isLongreadMutator') && Str::endsWith($mutator, 'Array') && $this->isLongreadMutator(substr($mutator, 0, -5))) {
             return true;
         }
 
@@ -33,7 +34,7 @@ class LaravelOctoberModel extends EloquentModel
             return $this->longreadValue($mutator, $value);
         }
 
-        if (method_exists($this, 'isLongreadMutator') && ends_with($mutator, 'Array') && $this->isLongreadMutator(substr($mutator, 0, -5))) {
+        if (method_exists($this, 'isLongreadMutator') && Str::endsWith($mutator, 'Array') && $this->isLongreadMutator(substr($mutator, 0, -5))) {
             return $this->longreadValue(substr($mutator, 0, -5), $value, true);
         }
 
