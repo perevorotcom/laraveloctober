@@ -3,6 +3,7 @@
 namespace Perevorotcom\LaravelOctober\Models;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Localization;
 use Route;
 
@@ -127,7 +128,7 @@ class Page extends \LaravelOctoberModel
         
         $fullUrl=request()->fullUrl();
 
-        return $this->url == $fullUrl || array_first($this->allChildren, function($child) {
+        return $this->url == $fullUrl || Arr::first($this->allChildren, function($child) {
             return $child->isActive;
         });
     }

@@ -3,6 +3,7 @@
 namespace Perevorotcom\LaravelOctober\Traits;
 
 use Perevorotcom\LaravelOctober\Scopes\TranslatableScope;
+use Illuminate\Support\Arr;
 use Localization;
 use DB;
 
@@ -28,12 +29,12 @@ trait Translatable
     public function getPrimatyTranslatableMutators()
     {
         if (!empty($this->translatable)) {
-            $primaryColumns=array_where($this->translatable, function ($column) {
+            $primaryColumns=Arr::where($this->translatable, function ($column) {
                 return !empty($column['primary']);
             });
 
             if (!empty($primaryColumns)) {
-                return array_pluck($primaryColumns, 0);
+                return Arr::pluck($primaryColumns, 0);
             }
         }
 
