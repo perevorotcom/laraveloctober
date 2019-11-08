@@ -21,7 +21,7 @@ class LaravelOctoberModel extends EloquentModel
             return true;
         }
 
-        return method_exists($this, 'get'.studly_case($mutator).'Attribute');
+        return method_exists($this, 'get'.Str::studly($mutator).'Attribute');
     }
 
     public function mutateAttribute($mutator, $value)
@@ -38,6 +38,6 @@ class LaravelOctoberModel extends EloquentModel
             return $this->longreadValue(substr($mutator, 0, -5), $value, true);
         }
 
-        return $this->{'get'.studly_case($mutator).'Attribute'}($value);
+        return $this->{'get'.Str::studly($mutator).'Attribute'}($value);
     }
 }
