@@ -48,7 +48,7 @@
                 "SEO": "Perevorotcom\\Laraveloctober\\Facades\\SEO",
                 "Translate": "Perevorotcom\\Laraveloctober\\Facades\\Translate",
                 "LongreadBlock": "Perevorotcom\\Laraveloctober\\Classes\\LongreadBlock",
-                "LaraveloctoberModel": "Perevorotcom\\Laraveloctober\\Classes\\LaraveloctoberModel",
+                "LaraveloctoberModel": "Perevorotcom\\Laraveloctober\\Classes\\LaravelOctoberModel",
                 "TranslatableTrait": "Perevorotcom\\Laraveloctober\\Traits\\Translatable",
                 "AttachmentsTrait": "Perevorotcom\\Laraveloctober\\Traits\\Attachments",
                 "LongreadTrait": "Perevorotcom\\Laraveloctober\\Traits\\Longread",
