@@ -4,6 +4,7 @@ namespace Perevorotcom\Laraveloctober\Models;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Localization;
 use Route;
 
