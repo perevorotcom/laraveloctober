@@ -1,14 +1,14 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Classes;
+namespace Perevorotcom\Laraveloctober\Classes;
 
 use App\Models\Settings;
 
 abstract class LongreadBlock
 {
-    protected $block;    
+    protected $block;
     protected $data = [];
-    
+
     public $last;
     public $first;
 
@@ -28,7 +28,7 @@ abstract class LongreadBlock
 
     public function set($key, $value)
     {
-        $this->data[$key]=$value;
+        $this->data[$key] = $value;
     }
 
     abstract public function parse();

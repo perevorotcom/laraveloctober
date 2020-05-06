@@ -1,16 +1,16 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Traits;
+namespace Perevorotcom\Laraveloctober\Traits;
 
-use Perevorotcom\LaravelOctober\Models\SystemFile;
 use Illuminate\Support\Str;
+use Perevorotcom\Laraveloctober\Models\SystemFile;
 
 trait Model
 {
     public function __call($mutator, $attributes)
     {
-        if($this->isAttachmentMutator($mutator)) {
-            return $this->{Str::endsWith($mutator, 's') ? 'hasMany' : 'hasOne'}('Perevorotcom\LaravelOctober\Models\SystemFile', 'attachment_id')
+        if ($this->isAttachmentMutator($mutator)) {
+            return $this->{Str::endsWith($mutator, 's') ? 'hasMany' : 'hasOne'}('Perevorotcom\Laraveloctober\Models\SystemFile', 'attachment_id')
                     ->where('is_public', 1)
                     ->where('attachment_type', $this->getBackendModel($mutator))
                     ->where('field', $mutator);
@@ -21,11 +21,11 @@ trait Model
 
     public function __get($mutator)
     {
-        if($this->isAttachmentMutator($mutator) && !array_key_exists($mutator, $this->relations)) {
-            return SystemFile::where('field', $mutator)->where('attachment_id', $this->id)->where('attachment_type', $this->getBackendModel($mutator))->where('is_public', 1)->orderBy('sort_order', 'ASC')->{Str::endsWith($mutator, 's') ? 'get':'first'}();
+        if ($this->isAttachmentMutator($mutator) && !array_key_exists($mutator, $this->relations)) {
+            return SystemFile::where('field', $mutator)->where('attachment_id', $this->id)->where('attachment_type', $this->getBackendModel($mutator))->where('is_public', 1)->orderBy('sort_order', 'ASC')->{Str::endsWith($mutator, 's') ? 'get' : 'first'}();
         }
 
-        if($this->isRicheditorMutator($mutator)) {
+        if ($this->isRicheditorMutator($mutator)) {
             $this->attributes[$mutator] = str_replace('img src="/storage/app', 'img src="'.env('STORAGE_URL'), $this->attributes[$mutator]);
         }
 
@@ -36,7 +36,7 @@ trait Model
     {
         return !empty($this->attachments) && in_array($mutator, $this->attachments) && !empty($this->getBackendModel($mutator));
     }
-    
+
     public function isRicheditorMutator($mutator)
     {
         return !empty($this->richeditors) && in_array($mutator, $this->richeditors);
@@ -44,7 +44,7 @@ trait Model
 
     private function getBackendModel($mutator)
     {
-        if(!empty($this->backendModel)){
+        if (!empty($this->backendModel)) {
             return $this->backendModel;
         }
 

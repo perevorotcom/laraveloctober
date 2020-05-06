@@ -1,23 +1,23 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Models;
+namespace Perevorotcom\Laraveloctober\Models;
 
 class SettingsSeo extends SystemSetting
 {
-    public $instance='perevorot_seo_settings';
+    public $instance = 'perevorot_seo_settings';
 
-    public $backendModel='Perevorot\Seo\Models\Settings';
+    public $backendModel = 'Perevorot\Seo\Models\Settings';
 
-    public $translatable=[
+    public $translatable = [
         'title',
         'description',
         'keywords',
         'og_title',
         'og_sitename',
-        'og_description'
+        'og_description',
     ];
 
-    public $attachments=[
-        'og_image'
+    public $attachments = [
+        'og_image',
     ];
 }

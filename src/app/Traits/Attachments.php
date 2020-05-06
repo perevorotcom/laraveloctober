@@ -1,16 +1,16 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Traits;
+namespace Perevorotcom\Laraveloctober\Traits;
 
-use Perevorotcom\LaravelOctober\Models\SystemFile;
 use Illuminate\Support\Str;
+use Perevorotcom\Laraveloctober\Models\SystemFile;
 
 trait Attachments
 {
     public function __call($mutator, $attributes)
     {
-        if($this->isAttachmentMutator($mutator)) {
-            return $this->{Str::endsWith($mutator, 's') ? 'hasMany' : 'hasOne'}('Perevorotcom\LaravelOctober\Models\SystemFile', 'attachment_id')
+        if ($this->isAttachmentMutator($mutator)) {
+            return $this->{Str::endsWith($mutator, 's') ? 'hasMany' : 'hasOne'}('Perevorotcom\Laraveloctober\Models\SystemFile', 'attachment_id')
                     ->where('is_public', 1)
                     ->where('attachment_type', $this->getBackendModel($mutator))
                     ->where('field', $mutator);
@@ -21,8 +21,8 @@ trait Attachments
 
     public function __get($mutator)
     {
-        if($this->isAttachmentMutator($mutator) && !array_key_exists($mutator, $this->relations)) {
-            return SystemFile::where('field', $mutator)->where('attachment_id', $this->id)->where('attachment_type', $this->getBackendModel($mutator))->where('is_public', 1)->orderBy('sort_order', 'ASC')->{Str::endsWith($mutator, 's') ? 'get':'first'}();
+        if ($this->isAttachmentMutator($mutator) && !array_key_exists($mutator, $this->relations)) {
+            return SystemFile::where('field', $mutator)->where('attachment_id', $this->id)->where('attachment_type', $this->getBackendModel($mutator))->where('is_public', 1)->orderBy('sort_order', 'ASC')->{Str::endsWith($mutator, 's') ? 'get' : 'first'}();
         }
 
         return parent::__get($mutator);
@@ -35,7 +35,7 @@ trait Attachments
 
     private function getBackendModel($mutator)
     {
-        if(!empty($this->backendModel)){
+        if (!empty($this->backendModel)) {
             return $this->backendModel;
         }
 

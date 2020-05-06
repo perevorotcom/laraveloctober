@@ -1,12 +1,12 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Traits;
+namespace Perevorotcom\Laraveloctober\Traits;
 
 trait Richeditor
 {
     public function __call($mutator, $attributes)
     {
-        if($this->isRicheditorMutator($mutator)) {
+        if ($this->isRicheditorMutator($mutator)) {
             return $mutator;
         }
 
@@ -15,8 +15,8 @@ trait Richeditor
 
     public function __get($mutator)
     {
-        if($this->isRicheditorMutator($mutator)) {
-            return $mutator;//$this->{$mutator};
+        if ($this->isRicheditorMutator($mutator)) {
+            return $mutator; //$this->{$mutator};
         }
 
         return parent::__get($mutator);
@@ -25,6 +25,7 @@ trait Richeditor
     public function isRicheditorMutator($mutator)
     {
         dd($this->richeditors);
+
         return !empty($this->richeditors) && in_array($mutator, $this->richeditors);
     }
 }

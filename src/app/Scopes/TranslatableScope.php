@@ -1,11 +1,10 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Scopes;
+namespace Perevorotcom\Laraveloctober\Scopes;
 
-use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
 use Localization;
 
 class TranslatableScope implements Scope
@@ -13,15 +12,13 @@ class TranslatableScope implements Scope
     /**
      * Apply translatable scope to a given Eloquent query builder.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
     public function apply(Builder $builder, Model $model)
     {
         if (!$model->ignoreTranslated && !empty($model->getPrimatyTranslatableMutators())) {
-            if (Localization::getDefaultLocale()!=Localization::getCurrentLocale()) {
-                if(empty($model->table)){
+            if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
+                if (empty($model->table)) {
                     abort(500, 'Для `'.get_class($model).'` не указана переменная $table');
                 }
 

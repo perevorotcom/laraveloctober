@@ -1,8 +1,8 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Models;
+namespace Perevorotcom\Laraveloctober\Models;
 
-class SystemSetting extends \LaravelOctoberModel
+class SystemSetting extends \LaraveloctoberModel
 {
     use \TranslatableTrait;
     use \AttachmentsTrait;
@@ -14,7 +14,7 @@ class SystemSetting extends \LaravelOctoberModel
     public $translatable;
     public $attachments;
 
-    public function __construct($attributes=[])
+    public function __construct($attributes = [])
     {
         $this->setAttributes($attributes);
 
@@ -25,10 +25,10 @@ class SystemSetting extends \LaravelOctoberModel
     {
         $this->setAttributes($attributes);
 
-        $data=json_decode($this->value);
+        $data = json_decode($this->value);
 
-        foreach($data as $key=>$value) {
-            $this->attributes[$key]=$value;
+        foreach ($data as $key => $value) {
+            $this->attributes[$key] = $value;
         }
 
         return $this;
@@ -36,22 +36,22 @@ class SystemSetting extends \LaravelOctoberModel
 
     private function setAttributes($attributes)
     {
-        foreach($attributes as $method=>$value) {
-            $this->{$method}=$value;
+        foreach ($attributes as $method => $value) {
+            $this->{$method} = $value;
         }
     }
 
     public function scopeInstance()
     {
-        $attributes=[
-            'backendModel'=>$this->backendModel,
-            'translatable'=>$this->translatable,
-            'attachments'=>$this->attachments
+        $attributes = [
+            'backendModel' => $this->backendModel,
+            'translatable' => $this->translatable,
+            'attachments' => $this->attachments,
         ];
 
-        $setting=new SystemSetting($attributes);
+        $setting = new SystemSetting($attributes);
 
-        $instance=$setting->where('item', $this->instance)->first();
+        $instance = $setting->where('item', $this->instance)->first();
 
         return $instance ? $instance->parse($attributes) : [];
     }

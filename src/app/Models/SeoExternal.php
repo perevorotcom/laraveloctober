@@ -1,8 +1,8 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Models;
+namespace Perevorotcom\Laraveloctober\Models;
 
-class SeoExternal extends \LaravelOctoberModel
+class SeoExternal extends \LaraveloctoberModel
 {
     public $table = 'perevorot_seo_external';
 

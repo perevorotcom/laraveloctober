@@ -1,9 +1,6 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Http\Controllers;
-
-use Perevorotcom\LaravelOctober\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+namespace Perevorotcom\Laraveloctober\Http\Controllers;
 
 class PageController extends Controller
 {

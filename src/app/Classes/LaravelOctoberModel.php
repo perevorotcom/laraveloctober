@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Classes;
+namespace Perevorotcom\Laraveloctober\Classes;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;

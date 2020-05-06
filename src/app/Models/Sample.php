@@ -2,25 +2,25 @@
 
 namespace App\Models;
 
-class Sample extends \LaravelOctoberModel
+class Sample extends \LaraveloctoberModel
 {
     use \LongreadTrait;
     use \TranslatableTrait;
     use \AttachmentsTrait;
 
     public $table = 'table_name...';
-    public $backendModel='Perevorot\Models...';
+    public $backendModel = 'Perevorot\Models...';
 
-    protected $longread=[
+    protected $longread = [
         'longread',
     ];
 
-    protected $translatable=[
-        ['title', 'primary'=>true],
-        'description'
+    protected $translatable = [
+        ['title', 'primary' => true],
+        'description',
     ];
 
-    protected $attachments=[
+    protected $attachments = [
         'image',
     ];
 }

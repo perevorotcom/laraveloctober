@@ -1,10 +1,10 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Classes;
+namespace Perevorotcom\Laraveloctober\Classes;
 
-use Localization;
-use DB;
 use Cache;
+use DB;
+use Localization;
 
 class SystemTranslate
 {
@@ -15,13 +15,13 @@ class SystemTranslate
 
     public function __construct()
     {
-        $this->currentLocale=Localization::getCurrentLocale();
-        $this->messages=$this->parseMessages();
+        $this->currentLocale = Localization::getCurrentLocale();
+        $this->messages = $this->parseMessages();
     }
 
-    public function get($label, $fallback='')
+    public function get($label, $fallback = '')
     {
-        if(!$this->isValidLabel($label)) {
+        if (!$this->isValidLabel($label)) {
             abort(500, 'Ошибка в метке перевода: `'.$label.'`. Допустимы только [a-ZA-Z0-9.-] с максимальной длиной 255 символов');
         }
 
@@ -40,30 +40,30 @@ class SystemTranslate
 
     private function getMessage($label, $fallback)
     {
-        if(!$this->isLabelExists($label)) {
-            if(!DB::table($this->table)->where('code', $label)->first()) {
+        if (!$this->isLabelExists($label)) {
+            if (!DB::table($this->table)->where('code', $label)->first()) {
                 DB::table($this->table)->insert([
-                    'code'=>$label,
-                    'message_data'=>$this->getBlankMessageData($label)
+                    'code' => $label,
+                    'message_data' => $this->getBlankMessageData($label),
                 ]);
             }
 
             $this->clearMessageCache();
 
-            $this->messages=$this->parseMessages();
+            $this->messages = $this->parseMessages();
         }
 
-        return $fallback && $this->messages[$label]==$label ? $fallback : $this->messages[$label];
+        return $fallback && $this->messages[$label] == $label ? $fallback : $this->messages[$label];
     }
 
     private function getBlankMessageData($label)
     {
-        $data=[
-            'x'=>$label
+        $data = [
+            'x' => $label,
         ];
 
-        foreach(Localization::getSupportedLanguagesKeys() as $locale) {
-            $data[$locale]='';
+        foreach (Localization::getSupportedLanguagesKeys() as $locale) {
+            $data[$locale] = '';
         }
 
         return json_encode($data);
@@ -76,18 +76,18 @@ class SystemTranslate
 
     private function isValidLabel($label)
     {
-        return !preg_match('/[^A-Za-z0-9.\-$]/', $label) && mb_strlen($label)<=255;
+        return !preg_match('/[^A-Za-z0-9.\-$]/', $label) && mb_strlen($label) <= 255;
     }
 
     private function parseMessages()
     {
-        return Cache::rememberForever($this->getCacheKey(), function(){
-            $messages=DB::table($this->table)->get();
-            $localizedMessages=[];
+        return Cache::rememberForever($this->getCacheKey(), function () {
+            $messages = DB::table($this->table)->get();
+            $localizedMessages = [];
 
-            foreach($messages as $message) {
-                $messageData=json_decode($message->message_data);
-                $localizedMessages[$message->code]=!empty($messageData->{$this->currentLocale}) ? $messageData->{$this->currentLocale} : $message->code;
+            foreach ($messages as $message) {
+                $messageData = json_decode($message->message_data);
+                $localizedMessages[$message->code] = !empty($messageData->{$this->currentLocale}) ? $messageData->{$this->currentLocale} : $message->code;
             }
 
             return $localizedMessages;

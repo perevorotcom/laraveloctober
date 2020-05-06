@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Facades;
+namespace Perevorotcom\Laraveloctober\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

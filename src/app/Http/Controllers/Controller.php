@@ -1,24 +1,26 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Http\Controllers;
+namespace Perevorotcom\Laraveloctober\Http\Controllers;
 
+use App\Models\Settings;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Perevorotcom\LaravelOctober\Models\Page;
-use App\Models\Settings;
+use Perevorotcom\Laraveloctober\Models\Page;
 use Route;
 use SEO;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     public $page;
     public $path;
     public $settings;
-    public $layoutCommonData=[];
+    public $layoutCommonData = [];
 
     public function __construct()
     {
@@ -28,32 +30,32 @@ class Controller extends BaseController
         $this->page = $page->current;
         $this->settings = Settings::instance();
 
-        $this->layoutCommonData=[
+        $this->layoutCommonData = [
             'page' => $this->page,
             'path' => $this->path,
-            'settings' => $this->settings
+            'settings' => $this->settings,
         ];
 
         if ($this->page) {
             SEO::setData([
-                'page' => $this->page
+                'page' => $this->page,
             ]);
-        }elseif (Route::currentRouteName()=='page') {
+        } elseif (Route::currentRouteName() == 'page') {
             abort(404);
         }
     }
 
-    public function view(String $partial, Array $params=[])
+    public function view(string $partial, array $params = [])
     {
         return view($partial, array_merge($params, $this->layoutCommonData));
     }
 
-    public function setCommonData($variable, $value=false)
+    public function setCommonData($variable, $value = false)
     {
-        if(is_array($variable)) {
-                 $this->layoutCommonData=array_merge($this->layoutCommonData, $variable);
+        if (is_array($variable)) {
+            $this->layoutCommonData = array_merge($this->layoutCommonData, $variable);
         } else {
-            $this->layoutCommonData[$variable]=$value;
+            $this->layoutCommonData[$variable] = $value;
         }
     }
 }

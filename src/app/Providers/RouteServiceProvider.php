@@ -1,9 +1,9 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Providers;
+namespace Perevorotcom\Laraveloctober\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Perevorotcom\LaravelOctober\Http\Controllers';
+    protected $namespace = 'Perevorotcom\Laraveloctober\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -43,7 +43,6 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-
     protected function mapBackendRoutes()
     {
         Route::middleware('backend')

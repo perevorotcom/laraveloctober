@@ -2,6 +2,6 @@
 
 namespace App\Models;
 
-class Page extends \Perevorotcom\LaravelOctober\Models\Page
+class Page extends \Perevorotcom\Laraveloctober\Models\Page
 {
 }

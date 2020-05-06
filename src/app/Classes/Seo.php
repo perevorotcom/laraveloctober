@@ -1,28 +1,28 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Classes;
+namespace Perevorotcom\Laraveloctober\Classes;
 
-use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\SEOMeta;
-use Perevorotcom\LaravelOctober\Models\SeoExternal;
-use Perevorotcom\LaravelOctober\Models\SeoTags;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Blade;
 use Illuminate\Support\Str;
 use Localization;
+use Perevorotcom\Laraveloctober\Models\SeoExternal;
+use Perevorotcom\Laraveloctober\Models\SeoTags;
 use Request;
-use Blade;
 
 class SEO extends SEOTools
 {
-    private $external=[
-        'head'=>[],
-        'body_top'=>[],
-        'body_bottom'=>[]
+    private $external = [
+        'head' => [],
+        'body_top' => [],
+        'body_bottom' => [],
     ];
 
     private $route;
 
     public $possibleUrl;
-    public $templateData=[];
+    public $templateData = [];
 
     public function head()
     {
@@ -44,11 +44,11 @@ class SEO extends SEOTools
 
     private function parseTags()
     {
-        if(!$this->route) {
-            $this->route=!empty(Request::route()) ? Request::route()->getName() : null;
+        if (!$this->route) {
+            $this->route = !empty(Request::route()) ? Request::route()->getName() : null;
         }
 
-        $tag=SeoTags::where(function ($q) {
+        $tag = SeoTags::where(function ($q) {
             $q->where(function ($q) {
                 if ($this->route) {
                     $q->where('seo_url_type', 0);
@@ -72,8 +72,8 @@ class SEO extends SEOTools
                 SEOMeta::setDescription($this->parseTemplate($tag->description));
             }
 
-            $keywords=!empty($tag->keywords) ? explode(',', $this->parseTemplate($tag->keywords)) : [];
-            $keywords=array_map('trim', $keywords);
+            $keywords = !empty($tag->keywords) ? explode(',', $this->parseTemplate($tag->keywords)) : [];
+            $keywords = array_map('trim', $keywords);
 
             if (!empty($keywords)) {
                 SEOMeta::setKeywords($keywords);
@@ -92,10 +92,10 @@ class SEO extends SEOTools
             }
 
             if ($tag->image) {
-                $image=$this->parseTemplate($tag->image);
+                $image = $this->parseTemplate($tag->image);
 
-                if(!Str::startsWith($image, 'http')) {
-                    $image=env('APP_URL').$image;
+                if (!Str::startsWith($image, 'http')) {
+                    $image = env('APP_URL').$image;
                 }
 
                 SEOTools::opengraph()->addImage($image);
@@ -111,11 +111,11 @@ class SEO extends SEOTools
 
     private function parseExternal()
     {
-        if(!$this->route) {
-            $this->route=!empty(Request::route()) ? Request::route()->getName() : null;
+        if (!$this->route) {
+            $this->route = !empty(Request::route()) ? Request::route()->getName() : null;
         }
 
-        $external=SeoExternal::enabled()->where(function ($q) {
+        $external = SeoExternal::enabled()->where(function ($q) {
             $q->where(function ($q) {
                 if ($this->route) {
                     $q->where('seo_url_type', 0);
@@ -143,12 +143,12 @@ class SEO extends SEOTools
 
     public function setRoute($routeName)
     {
-        $this->route=$routeName;
+        $this->route = $routeName;
     }
 
     public function setData($data)
     {
-        $this->templateData=$data;
+        $this->templateData = $data;
     }
 
     private function output($type)
@@ -164,24 +164,24 @@ class SEO extends SEOTools
 
         $url = Request::path();
 
-        if (Localization::getDefaultLocale()!=Localization::getCurrentLocale()) {
-            $url=ltrim($url, '/'.Localization::getCurrentLocale());
+        if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
+            $url = ltrim($url, '/'.Localization::getCurrentLocale());
         }
 
         $url = '/'.trim($url, '/');
 
         $urls = [$url];
-        $segments=preg_split("/[\/,-]+/", $url);
-        $str=str_split($url);
+        $segments = preg_split("/[\/,-]+/", $url);
+        $str = str_split($url);
 
-        $dividers=[
-            '/'=>[],
-            '-'=>[]
+        $dividers = [
+            '/' => [],
+            '-' => [],
         ];
 
         foreach ($str as $k => $one) {
             if (in_array($one, ['/', '-'])) {
-                $dividers[$one][]=$k;
+                $dividers[$one][] = $k;
             }
         }
 
@@ -190,24 +190,24 @@ class SEO extends SEOTools
         array_pop($segments);
 
         while ($i > 1) {
-            $urls[]=implode('/', $segments).'/*';
+            $urls[] = implode('/', $segments).'/*';
             array_pop($segments);
-            $i--;
+            --$i;
         }
 
         foreach ($urls as $key => $url) {
             foreach (['/', '-'] as $divider) {
                 foreach ($dividers[$divider] as $char_position) {
-                    if (strlen($url)>=$char_position) {
-                        $url=substr_replace($url, $divider, $char_position, 1);
+                    if (strlen($url) >= $char_position) {
+                        $url = substr_replace($url, $divider, $char_position, 1);
                     }
                 }
 
-                $urls[$key]=$url;
+                $urls[$key] = $url;
             }
         }
 
-        $this->possibleUrl=$urls;
+        $this->possibleUrl = $urls;
 
         return $urls;
     }
@@ -226,7 +226,7 @@ class SEO extends SEOTools
         extract($__data, EXTR_SKIP);
 
         try {
-            eval('?' . '>' . $php);
+            eval('?'.'>'.$php);
         } catch (Exception $e) {
             while (ob_get_level() > $obLevel) {
                 ob_end_clean();

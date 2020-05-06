@@ -1,15 +1,15 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Models;
+namespace Perevorotcom\Laraveloctober\Models;
 
-class SeoTags extends \LaravelOctoberModel
+class SeoTags extends \LaraveloctoberModel
 {
     use \TranslatableTrait;
     use \AttachmentsTrait;
 
     public $table = 'perevorot_seo_seo';
 
-    public $backendModel='Perevorot\Seo\Models\Seo';
+    public $backendModel = 'Perevorot\Seo\Models\Seo';
 
     public $translatable = [
         'title',
@@ -17,10 +17,10 @@ class SeoTags extends \LaravelOctoberModel
         'keywords',
         'og_title',
         'og_sitename',
-        'og_description'
+        'og_description',
     ];
-    
-    protected $attachments=[
+
+    protected $attachments = [
         'og_image',
     ];
 }

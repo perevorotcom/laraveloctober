@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Models;
+namespace Perevorotcom\Laraveloctober\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,22 +18,21 @@ class SystemFile extends Model
         return $this->getStorageDirectory('media').'/'.$this->disk_name;
     }
 
-    public function thumbPath($width, $height, $mode='auto')
+    public function thumbPath($width, $height, $mode = 'auto')
     {
-        return $this->getStorageDirectory('uploads/public').'/thumb_' . $this->id . '_' . $width . '_' . $height . '_0_0_'.$mode.'.' . pathinfo($this->disk_name, PATHINFO_EXTENSION);
+        return $this->getStorageDirectory('uploads/public').'/thumb_'.$this->id.'_'.$width.'_'.$height.'_0_0_'.$mode.'.'.pathinfo($this->disk_name, PATHINFO_EXTENSION);
     }
-    
-    public function srcSetPath($srcSet, $mode='auto')
+
+    public function srcSetPath($srcSet, $mode = 'auto')
     {
-        $set=[];
-        
-        foreach($srcSet as $dimensions) {
-            $size=explode('x', $dimensions);
+        $set = [];
+
+        foreach ($srcSet as $dimensions) {
+            $size = explode('x', $dimensions);
 
             array_push($set, $this->thumbPath($size[0], $size[1], $mode).' '.$size[0].'w');
-            
         }
-        
+
         return implode(', ', $set);
     }
 
@@ -59,13 +58,13 @@ class SystemFile extends Model
 
     public function parseJsonDescription($field)
     {
-        $json=json_decode($this->attributes['description']);
+        $json = json_decode($this->attributes['description']);
 
-        if(is_object($json)) {
+        if (is_object($json)) {
             return $json->{$field};
         }
 
-        if(!empty($this->attributes[$field])) {
+        if (!empty($this->attributes[$field])) {
             return $this->attributes[$field];
         }
 

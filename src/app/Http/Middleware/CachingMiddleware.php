@@ -1,37 +1,38 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Http\Middleware;
+namespace Perevorotcom\Laraveloctober\Http\Middleware;
 
-use Illuminate\Support\Str;
-use DateTime;
-use Closure;
 use Cache;
+use Closure;
+use DateTime;
+use Illuminate\Support\Str;
 
 class CachingMiddleware
 {
     /**
-    * @var Request
-    */
+     * @var Request
+     */
     protected $request;
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $data = [
         '%%csrf_token%%' => [
-            'type' => 'string'
-        ]
+            'type' => 'string',
+        ],
     ];
 
     public function __construct()
     {
         $this->initReplaceData();
     }
+
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -47,27 +48,27 @@ class CachingMiddleware
 
     protected function getResponse(Closure $next)
     {
-        if($this->isCacheIgnore() || !$this->request->isMethod('get')) {
+        if ($this->isCacheIgnore() || !$this->request->isMethod('get')) {
             return $next($this->request);
         }
 
         $cacheKey = $this->request->getPathInfo();
 
-        if(!Cache::has($cacheKey)) {
+        if (!Cache::has($cacheKey)) {
             $response = $next($this->request);
 
-            if($response->status()!=200) {
+            if ($response->status() != 200) {
                 return $response;
             }
 
             $response->original = '';
 
-            $timestamp=new DateTime();
+            $timestamp = new DateTime();
 
-            $content=$response->content();
+            $content = $response->content();
 
-            if(Str::startsWith($response->headers->get('content-type'), 'text/html')) {
-                $content.='<!--cached: '.$cacheKey.' '.$timestamp->format('c').'-->';
+            if (Str::startsWith($response->headers->get('content-type'), 'text/html')) {
+                $content .= '<!--cached: '.$cacheKey.' '.$timestamp->format('c').'-->';
             }
 
             $response->setContent($content);
@@ -80,20 +81,19 @@ class CachingMiddleware
 
     protected function isCacheIgnore()
     {
-        if(!env('CACHE_PAGE_LIFETIME')){
+        if (!env('CACHE_PAGE_LIFETIME')) {
             return true;
         }
 
-        if(method_exists($this->request->route()->controller, '__isCacheIgnore')) {
+        if (method_exists($this->request->route()->controller, '__isCacheIgnore')) {
             return $this->request->route()->controller->__isCacheIgnore($this->request);
         }
     }
 
     protected function replaceDynamicContent($content)
     {
-        foreach($this->data as $placeHolder => $replace)
-        {
-            $method = 'replace' . ucfirst($replace['type']) . 'Content';
+        foreach ($this->data as $placeHolder => $replace) {
+            $method = 'replace'.ucfirst($replace['type']).'Content';
 
             $content = method_exists($this, $method) ?
                 $this->{$method}($content, $placeHolder, $replace) :
@@ -104,9 +104,10 @@ class CachingMiddleware
     }
 
     /**
-     * @var string $content
-     * @var string $placeholder
-     * @var array $replace
+     * @var string
+     * @var string
+     * @var array
+     *
      * @return string
      */
     protected function replaceViewContent($content, $placeHolder, $replace)
@@ -115,9 +116,10 @@ class CachingMiddleware
     }
 
     /**
-     * @var string $content
-     * @var string $placeholder
-     * @var array $replace
+     * @var string
+     * @var string
+     * @var array
+     *
      * @return string
      */
     protected function replaceStringContent($content, $placeHolder, $replace)

@@ -1,10 +1,10 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Providers;
+namespace Perevorotcom\Laraveloctober\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Perevorotcom\LaravelOctober\Extensions\BladeExtensions;
-use Perevorotcom\LaravelOctober\Classes\SystemTranslate;
+use Perevorotcom\Laraveloctober\Classes\SystemTranslate;
+use Perevorotcom\Laraveloctober\Extensions\BladeExtensions;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,14 +13,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-
     public function boot(\Illuminate\Routing\Router $router)
     {
         BladeExtensions::extend();
 
         $this->setMiddlewareAliases($router);
 
-        $router->pushMiddlewareToGroup('backend', \Perevorotcom\LaravelOctober\Http\Middleware\CheckBackendHeaders::class);
+        $router->pushMiddlewareToGroup('backend', \Perevorotcom\Laraveloctober\Http\Middleware\CheckBackendHeaders::class);
 
         $this->publishes([
             __DIR__.'/../../resources/views' => resource_path('views'),
@@ -86,16 +85,16 @@ class AppServiceProvider extends ServiceProvider
      */
     private function setMiddlewareAliases(\Illuminate\Routing\Router $router)
     {
-        $middlewares=[
+        $middlewares = [
             'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
             'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
             'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
             'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
-            'redirectTrailingSlash' => \Perevorotcom\LaravelOctober\Http\Middleware\RedirectTrailingSlash::class,
-            'caching' => \Perevorotcom\LaravelOctober\Http\Middleware\CachingMiddleware::class
+            'redirectTrailingSlash' => \Perevorotcom\Laraveloctober\Http\Middleware\RedirectTrailingSlash::class,
+            'caching' => \Perevorotcom\Laraveloctober\Http\Middleware\CachingMiddleware::class,
         ];
 
-        foreach($middlewares as $middleware=>$middlewareClass) {
+        foreach ($middlewares as $middleware => $middlewareClass) {
             $router->aliasMiddleware($middleware, $middlewareClass);
         }
     }

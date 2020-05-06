@@ -1,31 +1,31 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Models;
+namespace Perevorotcom\Laraveloctober\Models;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Localization;
 use Route;
 
-class Page extends \LaravelOctoberModel
+class Page extends \LaraveloctoberModel
 {
     use \TranslatableTrait;
     use \LongreadTrait;
     use \AttachmentsTrait;
 
     public $table = 'perevorot_page_page';
-    public $backendModel='Perevorot\Page\Models\Page';
+    public $backendModel = 'Perevorot\Page\Models\Page';
 
-    const PAGE_TYPE_STATIC=1;
-    const PAGE_TYPE_ALIAS=2;
-    const PAGE_TYPE_EXTERNAL=3;
-    const PAGE_TYPE_ROUTE=4;
+    const PAGE_TYPE_STATIC = 1;
+    const PAGE_TYPE_ALIAS = 2;
+    const PAGE_TYPE_EXTERNAL = 3;
+    const PAGE_TYPE_ROUTE = 4;
 
-    public $translatable=[
-        ['title', 'primary'=>true],
+    public $translatable = [
+        ['title', 'primary' => true],
     ];
 
-    protected $longread=[
+    protected $longread = [
         'longread',
     ];
 
@@ -41,18 +41,18 @@ class Page extends \LaravelOctoberModel
 
     public function scopeMenuDepth($query, $depth, $level)
     {
-        if(!empty($level)) {
-            $query->where('nest_depth', '<', $depth+$level);
+        if (!empty($level)) {
+            $query->where('nest_depth', '<', $depth + $level);
         }
-        
+
         $query->where('nest_depth', '>=', $depth);
-        
+
         return $query;
     }
 
     public function alias()
     {
-        return $this->hasOne('Perevorotcom\LaravelOctober\Models\Page', 'id', 'alias_page_id');
+        return $this->hasOne('Perevorotcom\Laraveloctober\Models\Page', 'id', 'alias_page_id');
     }
 
     public function route()
@@ -62,7 +62,7 @@ class Page extends \LaravelOctoberModel
 
     public function getHasChildrenAttribute($value)
     {
-        return $this->nest_right > $this->nest_left+1;
+        return $this->nest_right > $this->nest_left + 1;
     }
 
     public function getChildrenAttribute($value)
@@ -77,41 +77,40 @@ class Page extends \LaravelOctoberModel
 
     public function getUrlAttribute($value)
     {
-        $url='';
+        $url = '';
 
-        switch($this->type)
-        {
+        switch ($this->type) {
             case self::PAGE_TYPE_STATIC:
-                $url=!empty($this->attributes['url']) ? Localization::getLocalizedURL(null, $this->attributes['url']) : '';
+                $url = !empty($this->attributes['url']) ? Localization::getLocalizedURL(null, $this->attributes['url']) : '';
                 break;
 
             case self::PAGE_TYPE_ALIAS:
-                if($this->id!=$this->alias_page_id && !empty($this->alias)) {
-                    $url=$this->alias->url;
+                if ($this->id != $this->alias_page_id && !empty($this->alias)) {
+                    $url = $this->alias->url;
                 }
                 break;
 
             case self::PAGE_TYPE_EXTERNAL:
-                $url=$this->url_external;
+                $url = $this->url_external;
                 break;
 
             case self::PAGE_TYPE_ROUTE:
-                if(Route::current() && $this->route_name && !$this->route_id) {
-                    $parameters=Route::current()->parameters;
+                if (Route::current() && $this->route_name && !$this->route_id) {
+                    $parameters = Route::current()->parameters;
 
-                    if(strpos(Route::getRoutes()->getByName($this->route_name)->uri, '{')===false) {
-                        $url=localized_route_url($this->route_name);
-                    }elseif(Route::currentRouteName()==$this->route_name && !empty($parameters)) {
-                        $url=localized_route_url($this->route_name, (object) $parameters);
-                    }else{
-                        $url=localized_route_url($this->route_name, (object)[]);
+                    if (strpos(Route::getRoutes()->getByName($this->route_name)->uri, '{') === false) {
+                        $url = localized_route_url($this->route_name);
+                    } elseif (Route::currentRouteName() == $this->route_name && !empty($parameters)) {
+                        $url = localized_route_url($this->route_name, (object) $parameters);
+                    } else {
+                        $url = localized_route_url($this->route_name, (object) []);
                     }
-                }elseif($this->route_type && $this->route_id){
-                    $url=localized_route_url($this->route_type, [$this->route]);
-                }elseif($this->route_type) {
-                    $url=localized_route_url($this->route_type);
-                }else{
-                    $url='';
+                } elseif ($this->route_type && $this->route_id) {
+                    $url = localized_route_url($this->route_type, [$this->route]);
+                } elseif ($this->route_type) {
+                    $url = localized_route_url($this->route_type);
+                } else {
+                    $url = '';
                 }
 
                 break;
@@ -122,13 +121,13 @@ class Page extends \LaravelOctoberModel
 
     public function getIsActiveAttribute($value)
     {
-        if(!empty($this->attributes['active'])){
+        if (!empty($this->attributes['active'])) {
             return true;
         }
-        
-        $fullUrl=request()->fullUrl();
 
-        return $this->url == $fullUrl || Arr::first($this->allChildren, function($child) {
+        $fullUrl = request()->fullUrl();
+
+        return $this->url == $fullUrl || Arr::first($this->allChildren, function ($child) {
             return $child->isActive;
         });
     }
@@ -139,14 +138,14 @@ class Page extends \LaravelOctoberModel
         $locales = Localization::getSupportedLanguagesKeys();
 
         if (Localization::hideDefaultLocaleInURL()) {
-            $locales=array_diff($locales, [$defaultLocale]);
+            $locales = array_diff($locales, [$defaultLocale]);
         }
 
-        $path=trim(request()->path(), '/').'/';
+        $path = trim(request()->path(), '/').'/';
 
         foreach ($locales as $locale) {
             if (Str::startsWith($path, $locale.'/')) {
-                $path=substr($path, 3);
+                $path = substr($path, 3);
             }
         }
 
@@ -156,13 +155,13 @@ class Page extends \LaravelOctoberModel
     }
 
     public function getCurrentAttribute()
-    {        
+    {
         $slug = !empty($this->route->parameters['slug']) ? $this->route->parameters['slug'] : '';
 
-        $page = Page::enabled()->where(function($q) use($slug) {
+        $page = Page::enabled()->where(function ($q) use ($slug) {
             $q->where('route_name', Route::currentRouteName());
-            $q->whereRaw('(route_id '.($slug ? '="'.$slug.'"':' IS NULL OR route_id=0').')');
-        })->orWhere(function($q){
+            $q->whereRaw('(route_id '.($slug ? '="'.$slug.'"' : ' IS NULL OR route_id=0').')');
+        })->orWhere(function ($q) {
             $q->where('url', $this->path);
         })->first();
 

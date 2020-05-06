@@ -1,15 +1,14 @@
 <?php
 
-namespace Perevorotcom\LaravelOctober\Models;
+namespace Perevorotcom\Laraveloctober\Models;
 
-class BackendLongreadPreview extends \LaravelOctoberModel
+class BackendLongreadPreview extends \LaraveloctoberModel
 {
     use \LongreadTrait;
 
     protected $table = 'perevorot_longread_preview';
 
-    protected $longread=[
+    protected $longread = [
         'longread',
     ];
-
 }
