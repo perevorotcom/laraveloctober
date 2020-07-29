@@ -163,7 +163,7 @@ class Page extends \LaraveloctoberModel
             $q->where('route_name', Route::currentRouteName());
             $q->whereRaw('(route_id '.($slug ? '="'.$slug.'"' : ' IS NULL OR route_id=0').')');
         })->orWhere(function ($q) {
-            $q->where('url', $this->path);
+            $q->whereRaw('BINARY url=?', [$this->path]);
         })->first();
 
         return $page ? $page : false;
