@@ -22,6 +22,8 @@ abstract class LongreadBlock
     public function get()
     {
         $this->set('block', !empty($this->block->value) ? $this->block->value : []);
+        $this->set('first', $this->first);
+        $this->set('last', $this->last);
 
         return view('longread/'.$this->block->alias, $this->data)->render();
     }
