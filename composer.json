@@ -38,16 +38,21 @@
     },
     "extra": {
         "laravel": {
+            "providers": [
+                "Perevorotcom\\Laraveloctober\\App\\Providers\\AppServiceProvider",
+                "Perevorotcom\\Laraveloctober\\App\\Providers\\RouteServiceProvider",
+                "Perevorotcom\\Laraveloctober\\App\\Providers\\SEOServiceProvider"
+            ],
             "aliases": {
                 "Localization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization",
-                "SEO": "App\\Facades\\SEO",
-                "Translate": "App\\Facades\\Translate",
-                "LongreadBlock": "App\\Classes\\LongreadBlock",
-                "LaraveloctoberModel": "App\\Classes\\LaravelOctoberModel",
-                "TranslatableTrait": "App\\Traits\\Translatable",
-                "AttachmentsTrait": "App\\Traits\\Attachments",
-                "LongreadTrait": "App\\Traits\\Longread",
-                "ModelTrait": "App\\Traits\\Model"
+                "SEO": "Perevorotcom\\Laraveloctober\\App\\Facades\\SEO",
+                "Translate": "Perevorotcom\\Laraveloctober\\App\\Facades\\Translate",
+                "LongreadBlock": "Perevorotcom\\Laraveloctober\\App\\Classes\\LongreadBlock",
+                "LaraveloctoberModel": "Perevorotcom\\Laraveloctober\\App\\Classes\\LaravelOctoberModel",
+                "TranslatableTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Translatable",
+                "AttachmentsTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Attachments",
+                "LongreadTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Longread",
+                "ModelTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Model"
             }
         }
     }
