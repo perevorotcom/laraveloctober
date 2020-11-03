@@ -22,43 +22,43 @@ class AppServiceProvider extends ServiceProvider
         $router->pushMiddlewareToGroup('backend', \Perevorotcom\Laraveloctober\Http\Middleware\CheckBackendHeaders::class);
 
         $this->publishes([
-            __DIR__.'/../../resources/views' => resource_path('views'),
+            __DIR__.'/../../../resources/views' => resource_path('views'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../Longread' => app_path('Longread'),
+            __DIR__.'/../../Longread' => app_path('Longread'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../Models/Sample.php' => app_path('Models/Sample.php'),
+            __DIR__.'/../../Models/Sample.php' => app_path('Models/Sample.php'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../Models/Settings.php' => app_path('Models/Settings.php'),
+            __DIR__.'/../../Models/Settings.php' => app_path('Models/Settings.php'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../../.env.example' => base_path('.env.example.laraveloctober'),
+            __DIR__.'/../../../.env.example' => base_path('.env.example.laraveloctober'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../../config' => config_path(),
+            __DIR__.'/../../../config' => config_path(),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../../routes/laraveloctober.php' => base_path('routes/laraveloctober.php'),
+            __DIR__.'/../../../routes/laraveloctober.php' => base_path('routes/laraveloctober.php'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../../routes/console.php' => base_path('routes/console.php'),
+            __DIR__.'/../../../routes/console.php' => base_path('routes/console.php'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../Http/Controllers/PageController.php' => app_path('Http/Controllers/PageController.php'),
+            __DIR__.'/../../Http/Controllers/PageController.php' => app_path('Http/Controllers/PageController.php'),
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../Http/Controllers/ControllerSample.php' => app_path('Http/Controllers/ControllerSample.php'),
+            __DIR__.'/../../Http/Controllers/ControllerSample.php' => app_path('Http/Controllers/ControllerSample.php'),
         ], 'laraveloctober');
     }
 

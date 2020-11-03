@@ -47,6 +47,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('backend')
              ->namespace($this->namespace)
-             ->group(__DIR__.'/../../routes/backend.php');
+             ->group(__DIR__.'/../../../routes/backend.php');
     }
 }
