@@ -19,10 +19,11 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.5",
         "artesaos/seotools": "^0.16",
-        "mcamara/laravel-localization": "^1.6"
+        "mcamara/laravel-localization": "^1.6",
+        "spatie/laravel-responsecache": "^6"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.2@dev",
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.2",
