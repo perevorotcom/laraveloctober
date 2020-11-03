@@ -34,10 +34,6 @@ class AppServiceProvider extends ServiceProvider
         ], 'laraveloctober');
 
         $this->publishes([
-            __DIR__.'/../Models/AppPage.php' => app_path('Models/Page.php'),
-        ], 'laraveloctober');
-
-        $this->publishes([
             __DIR__.'/../Models/Settings.php' => app_path('Models/Settings.php'),
         ], 'laraveloctober');
 
