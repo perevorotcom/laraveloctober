@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Http\Controllers;
+namespace Http\Controllers;
 
 use App\Models\Settings;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

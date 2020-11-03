@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Http\Controllers;
+namespace Http\Controllers;
 
 class PageController extends Controller
 {

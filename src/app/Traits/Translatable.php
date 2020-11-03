@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Traits;
+namespace Traits;
 
 use DB;
 use Illuminate\Support\Arr;

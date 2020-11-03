@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Providers;
+namespace Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Perevorotcom\Laraveloctober\Classes\SystemTranslate;

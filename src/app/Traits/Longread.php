@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Traits;
+namespace Traits;
 
 use Illuminate\Support\Str;
 use Localization;

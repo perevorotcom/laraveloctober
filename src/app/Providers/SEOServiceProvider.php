@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Providers;
+namespace Providers;
 
 use Artesaos\SEOTools\Providers\SEOToolsServiceProvider;
 use Perevorotcom\Laraveloctober\Classes\SEO;

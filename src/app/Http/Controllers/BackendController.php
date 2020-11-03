@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Http\Controllers;
+namespace Http\Controllers;
 
 use Debugbar;
 use Perevorotcom\Laraveloctober\Models\BackendLongreadPreview;

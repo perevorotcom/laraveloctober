@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Extensions;
+namespace Extensions;
 
 use Blade;
 

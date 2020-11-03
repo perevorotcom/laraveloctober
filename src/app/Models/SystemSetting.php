@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Models;
+namespace Models;
 
 class SystemSetting extends \LaraveloctoberModel
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Http\Middleware;
+namespace Http\Middleware;
 
 use Cache;
 use Closure;

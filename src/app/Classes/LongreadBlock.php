@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Classes;
+namespace Classes;
 
 use App\Models\Settings;
 
