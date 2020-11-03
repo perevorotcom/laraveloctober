@@ -5,7 +5,7 @@ namespace Perevorotcom\Laraveloctober\Http\Controllers;
 use Perevorotcom\Laraveloctober\Http\Controllers\Controller as BaseController;
 use Perevorotcom\Laraveloctober\Models\Menu;
 
-class Controller extends BaseController
+class ControllerSample extends BaseController
 {
     public function __construct()
     {

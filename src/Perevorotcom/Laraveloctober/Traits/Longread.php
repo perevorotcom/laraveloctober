@@ -35,7 +35,7 @@ trait Longread
 
     private function processBlockClass($block, $key, $total)
     {
-        $namespace Perevorotcom\Laraveloctober\= '\App\Longread\\'.ucfirst(Str::camel($block->alias));
+        $namespace = 'App\Longread\\'.ucfirst(Str::camel($block->alias));
 
         if (!class_exists($namespace)) {
             return [];
