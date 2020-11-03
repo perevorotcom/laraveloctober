@@ -38,11 +38,6 @@
     },
     "extra": {
         "laravel": {
-            "providers": [
-                "App\\Providers\\AppServiceProvider",
-                "App\\Providers\\RouteServiceProvider",
-                "App\\Providers\\SEOServiceProvider"
-            ],
             "aliases": {
                 "Localization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization",
                 "SEO": "App\\Facades\\SEO",
