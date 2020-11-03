@@ -18,7 +18,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.5",
-        "artesaos/seotools": "^0.16",
+        "artesaos/seotools": "^0.19",
         "mcamara/laravel-localization": "^1.6",
         "spatie/laravel-responsecache": "^6"
     },
