@@ -38,20 +38,20 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Perevorotcom\\Laraveloctober\\App\\Providers\\AppServiceProvider",
-                "Perevorotcom\\Laraveloctober\\App\\Providers\\RouteServiceProvider",
-                "Perevorotcom\\Laraveloctober\\App\\Providers\\SEOServiceProvider"
+                "Perevorotcom\\Laraveloctober\\Providers\\AppServiceProvider",
+                "Perevorotcom\\Laraveloctober\\Providers\\RouteServiceProvider",
+                "Perevorotcom\\Laraveloctober\\Providers\\SEOServiceProvider"
             ],
             "aliases": {
                 "Localization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization",
-                "SEO": "Perevorotcom\\Laraveloctober\\App\\Facades\\SEO",
-                "Translate": "Perevorotcom\\Laraveloctober\\App\\Facades\\Translate",
-                "LongreadBlock": "Perevorotcom\\Laraveloctober\\App\\Classes\\LongreadBlock",
-                "LaraveloctoberModel": "Perevorotcom\\Laraveloctober\\App\\Classes\\LaravelOctoberModel",
-                "TranslatableTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Translatable",
-                "AttachmentsTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Attachments",
-                "LongreadTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Longread",
-                "ModelTrait": "Perevorotcom\\Laraveloctober\\App\\Traits\\Model"
+                "SEO": "Perevorotcom\\Laraveloctober\\Facades\\SEO",
+                "Translate": "Perevorotcom\\Laraveloctober\\Facades\\Translate",
+                "LongreadBlock": "Perevorotcom\\Laraveloctober\\Classes\\LongreadBlock",
+                "LaraveloctoberModel": "Perevorotcom\\Laraveloctober\\Classes\\LaravelOctoberModel",
+                "TranslatableTrait": "Perevorotcom\\Laraveloctober\\Traits\\Translatable",
+                "AttachmentsTrait": "Perevorotcom\\Laraveloctober\\Traits\\Attachments",
+                "LongreadTrait": "Perevorotcom\\Laraveloctober\\Traits\\Longread",
+                "ModelTrait": "Perevorotcom\\Laraveloctober\\Traits\\Model"
             }
         }
     }
