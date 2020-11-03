@@ -1,6 +1,6 @@
 <?php
 
-namespace Classes;
+namespace App\Classes;
 
 use App\Models\Settings;
 

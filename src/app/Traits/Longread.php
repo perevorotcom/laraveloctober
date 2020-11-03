@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace App\Traits;
 
 use Illuminate\Support\Str;
 use Localization;
@@ -35,7 +35,7 @@ trait Longread
 
     private function processBlockClass($block, $key, $total)
     {
-        $namespace = '\App\Longread\\'.ucfirst(Str::camel($block->alias));
+        $namespace App\= '\App\Longread\\'.ucfirst(Str::camel($block->alias));
 
         if (!class_exists($namespace)) {
             return [];

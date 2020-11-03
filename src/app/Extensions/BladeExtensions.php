@@ -1,6 +1,6 @@
 <?php
 
-namespace Extensions;
+namespace App\Extensions;
 
 use Blade;
 

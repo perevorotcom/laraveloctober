@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;

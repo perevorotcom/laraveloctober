@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace App\Traits;
 
 trait Richeditor
 {

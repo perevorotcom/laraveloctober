@@ -1,6 +1,6 @@
 <?php
 
-namespace Classes;
+namespace App\Classes;
 
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;

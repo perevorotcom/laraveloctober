@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace App\Traits;
 
 use Illuminate\Support\Str;
 use Perevorotcom\Laraveloctober\Models\SystemFile;

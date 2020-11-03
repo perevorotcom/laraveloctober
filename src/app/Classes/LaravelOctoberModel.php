@@ -1,6 +1,6 @@
 <?php
 
-namespace Classes;
+namespace App\Classes;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
