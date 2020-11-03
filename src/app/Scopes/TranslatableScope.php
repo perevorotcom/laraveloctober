@@ -1,6 +1,6 @@
 <?php
 
-namespace Perevorotcom\Laraveloctober\Scopes;
+namespace Perevorotcom\Laraveloctober\App\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
