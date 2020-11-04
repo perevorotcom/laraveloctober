@@ -38,7 +38,7 @@ class SystemFile extends Model
 
     protected function getStorageDirectory($type)
     {
-        return env('STORAGE_URL').'/'.$type.'/'.implode('/', array_slice(str_split($this->disk_name, 3), 0, 3));
+        return config('laraveloctober.storageUrl').'/'.$type.'/'.implode('/', array_slice(str_split($this->disk_name, 3), 0, 3));
     }
 
     public function getDescriptionAttribute()

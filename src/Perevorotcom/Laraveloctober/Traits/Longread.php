@@ -21,7 +21,7 @@ trait Longread
                 $parsed = $this->processBlockClass($block, $key, sizeof($blocks));
 
                 if (!empty($parsed)) {
-                    $parsed = str_replace('img src="/storage/app', 'img src="'.env('STORAGE_URL'), $parsed);
+                    $parsed = str_replace('img src="/storage/app', 'img src="'.config('laraveloctober.storageUrl'), $parsed);
 
                     $html[] = $parsed;
                 }

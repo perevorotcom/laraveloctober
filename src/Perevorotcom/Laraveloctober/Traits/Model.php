@@ -26,7 +26,7 @@ trait Model
         }
 
         if ($this->isRicheditorMutator($mutator)) {
-            $this->attributes[$mutator] = str_replace('img src="/storage/app', 'img src="'.env('STORAGE_URL'), $this->attributes[$mutator]);
+            $this->attributes[$mutator] = str_replace('img src="/storage/app', 'img src="'.config('laraveloctober.storageUrl'), $this->attributes[$mutator]);
         }
 
         return parent::__get($mutator);

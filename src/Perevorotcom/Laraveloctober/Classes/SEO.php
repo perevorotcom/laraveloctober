@@ -95,7 +95,7 @@ class SEO extends SEOTools
                 $image = $this->parseTemplate($tag->image);
 
                 if (!Str::startsWith($image, 'http')) {
-                    $image = env('APP_URL').$image;
+                    $image = config('app.url').$image;
                 }
 
                 SEOTools::opengraph()->addImage($image);

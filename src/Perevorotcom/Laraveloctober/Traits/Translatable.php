@@ -74,7 +74,7 @@ trait Translatable
             }
 
             if (!empty($this->richeditors) && in_array($mutator, $this->richeditors)) {
-                $this->translatableData[$locale]->{$mutator} = str_replace('img src="/storage/app', 'img src="'.env('STORAGE_URL'), $this->translatableData[$locale]->{$mutator});
+                $this->translatableData[$locale]->{$mutator} = str_replace('img src="/storage/app', 'img src="'.config('laraveloctober.storageUrl'), $this->translatableData[$locale]->{$mutator});
             }
 
             return !empty($this->translatableData[$locale]->{$mutator}) ? $this->translatableData[$locale]->{$mutator} : '';
