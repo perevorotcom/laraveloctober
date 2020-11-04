@@ -19,8 +19,6 @@ class AppServiceProvider extends ServiceProvider
 
         $this->setMiddlewareAliases($router);
 
-        $router->pushMiddlewareToGroup('backend', \Perevorotcom\Laraveloctober\Http\Middleware\CheckBackendHeaders::class);
-
         $this->publishes([
             __DIR__.'/../../../resources/views' => resource_path('views'),
         ], 'laraveloctober');
@@ -87,7 +85,7 @@ class AppServiceProvider extends ServiceProvider
             'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
             'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
             'redirectTrailingSlash' => \Perevorotcom\Laraveloctober\Http\Middleware\RedirectTrailingSlash::class,
-            'caching' => \Perevorotcom\Laraveloctober\Http\Middleware\CachingMiddleware::class,
+            'doNotCacheResponse' => \Spatie\ResponseCache\Middlewares\DoNotCacheResponse::class,
         ];
 
         foreach ($middlewares as $middleware => $middlewareClass) {
