@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Perevorotcom\Laraveloctober\Models\Page;
 use Route;
 use SEO;
+use View;
 
 class Controller extends BaseController
 {
@@ -30,11 +31,9 @@ class Controller extends BaseController
         $this->page = $page->current;
         $this->settings = Settings::instance();
 
-        $this->layoutCommonData = [
-            'page' => $this->page,
-            'path' => $this->path,
-            'settings' => $this->settings,
-        ];
+        View::share('page', $this->page);
+        View::share('path', $this->path);
+        View::share('settings', $this->settings);
 
         if ($this->page) {
             SEO::setData([
@@ -42,20 +41,6 @@ class Controller extends BaseController
             ]);
         } elseif (Route::currentRouteName() == 'page') {
             abort(404);
-        }
-    }
-
-    public function view(string $partial, array $params = [])
-    {
-        return view($partial, array_merge($params, $this->layoutCommonData));
-    }
-
-    public function setCommonData($variable, $value = false)
-    {
-        if (is_array($variable)) {
-            $this->layoutCommonData = array_merge($this->layoutCommonData, $variable);
-        } else {
-            $this->layoutCommonData[$variable] = $value;
         }
     }
 }

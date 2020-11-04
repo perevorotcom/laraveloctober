@@ -54,10 +54,6 @@ class AppServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../Http/Controllers/PageController.php' => app_path('Http/Controllers/PageController.php'),
         ], 'laraveloctober');
-
-        $this->publishes([
-            __DIR__.'/../../Http/Controllers/ControllerSample.php' => app_path('Http/Controllers/ControllerSample.php'),
-        ], 'laraveloctober');
     }
 
     /**
