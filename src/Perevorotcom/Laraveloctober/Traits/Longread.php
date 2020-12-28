@@ -8,11 +8,15 @@ use Perevorotcom\Laraveloctober\Models\SystemFile;
 
 trait Longread
 {
-    public function longreadValue($mutator, $value, $isArray = false)
+    public function longreadValue($mutator, $value, $type = false)
     {
         $blocks = $this->getLongreadValue($mutator);
 
         if (!empty($blocks)) {
+            if($type == 'json') {
+                return $blocks;
+            }
+            
             $this->longreadProccessFiles($blocks);
 
             $html = [];
@@ -27,7 +31,7 @@ trait Longread
                 }
             }
 
-            return $isArray ? $html : implode('', $html);
+            return $type == 'array' ? $html : implode('', $html);
         }
 
         return $value;
