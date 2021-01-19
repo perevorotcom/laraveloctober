@@ -30,9 +30,9 @@ class TranslatableScope implements Scope
                     $q->where($model->translationIndexesTable.'.locale', Localization::getCurrentLocale());
 
                     foreach ($model->getPrimatyTranslatableMutators() as $column) {
-                        $q->where(function ($q) use ($column) {
-                            $q->where('item', $column);
-                            $q->where('value', '!=', '');
+                        $q->where(function ($q) use ($column, $model) {
+                            $q->where($model->translationIndexesTable.'.item', $column);
+                            $q->where($model->translationIndexesTable.'.value', '!=', '');
                         });
                     }
                 });
