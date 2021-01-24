@@ -21,6 +21,10 @@ class LaravelOctoberModel extends EloquentModel
             return true;
         }
 
+        if (method_exists($this, 'isLongreadMutator') && Str::endsWith($mutator, 'Json') && $this->isLongreadMutator(substr($mutator, 0, -4))) {
+            return true;
+        }
+
         return method_exists($this, 'get'.Str::studly($mutator).'Attribute');
     }
 
@@ -35,7 +39,11 @@ class LaravelOctoberModel extends EloquentModel
         }
 
         if (method_exists($this, 'isLongreadMutator') && Str::endsWith($mutator, 'Array') && $this->isLongreadMutator(substr($mutator, 0, -5))) {
-            return $this->longreadValue(substr($mutator, 0, -5), $value, true);
+            return $this->longreadValue(substr($mutator, 0, -5), $value, 'array');
+        }
+
+        if (method_exists($this, 'isLongreadMutator') && Str::endsWith($mutator, 'Json') && $this->isLongreadMutator(substr($mutator, 0, -4))) {
+            return $this->longreadValue(substr($mutator, 0, -4), $value, 'json');
         }
 
         return $this->{'get'.Str::studly($mutator).'Attribute'}($value);
