@@ -41,6 +41,21 @@ trait Translatable
         return [];
     }
 
+    public function getFallbackTranslatableMutators()
+    {
+        if (!empty($this->translatable)) {
+            $fallbackColumns = Arr::where($this->translatable, function ($column) {
+                return !empty($column['fallback']);
+            });
+
+            if (!empty($fallbackColumns)) {
+                return Arr::pluck($fallbackColumns, 0);
+            }
+        }
+
+        return [];
+    }
+
     public function getTranslatableColumns()
     {
         $array = [];
@@ -77,7 +92,13 @@ trait Translatable
                 $this->translatableData[$locale]->{$mutator} = str_replace('img src="/storage/app', 'img src="'.config('laraveloctober.storageUrl'), $this->translatableData[$locale]->{$mutator});
             }
 
-            return !empty($this->translatableData[$locale]->{$mutator}) ? $this->translatableData[$locale]->{$mutator} : '';
+            $return = !empty($this->translatableData[$locale]->{$mutator}) ? $this->translatableData[$locale]->{$mutator} : '';
+
+            if (empty($return) && !empty($this->getFallbackTranslatableMutators())) {
+                $return = !empty($this->attributes[$mutator]) ? $this->attributes[$mutator] : '';
+            }
+
+            return $return;
         }
 
         $this->forcedLocale = null;
