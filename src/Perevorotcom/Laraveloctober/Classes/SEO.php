@@ -65,10 +65,17 @@ class SEO extends SEOTools
 
         if ($tag) {
             if (!empty(trim($tag->title))) {
+                if (config('seotools.appendDefaults', true)) {
+                    config(['seotools.meta.defaults.title' => false]);
+                }
+
                 SEOMeta::setTitle($this->parseTemplate($tag->title));
             }
 
             if (!empty(trim($tag->description))) {
+                if (config('seotools.appendDefaults', true)) {
+                    config(['seotools.meta.defaults.description' => false]);
+                }
                 SEOMeta::setDescription($this->parseTemplate($tag->description));
             }
 
@@ -76,6 +83,10 @@ class SEO extends SEOTools
             $keywords = array_map('trim', $keywords);
 
             if (!empty($keywords)) {
+                if (config('seotools.appendDefaults', true)) {
+                    config(['seotools.meta.defaults.keywords' => false]);
+                }
+
                 SEOMeta::setKeywords($keywords);
             }
 
@@ -84,10 +95,18 @@ class SEO extends SEOTools
             }
 
             if (!empty(trim($tag->og_title))) {
+                if (config('seotools.appendDefaults', true)) {
+                    config(['seotools.opengraph.defaults.title' => false]);
+                }
+
                 SEOTools::opengraph()->setTitle($this->parseTemplate($tag->og_title));
             }
 
             if (!empty(trim($tag->og_description))) {
+                if (config('seotools.appendDefaults', true)) {
+                    config(['seotools.opengraph.defaults.og_description' => false]);
+                }
+
                 SEOTools::opengraph()->setDescription($this->parseTemplate($tag->og_description));
             }
 
