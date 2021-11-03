@@ -222,7 +222,7 @@ class SEO extends SEOTools
                     }
                 }
 
-                $urls[$key] = $url;
+                $urls[$key] = addslashes($url);
             }
         }
 
