@@ -16,8 +16,14 @@ class RedirectTrailingSlash
      */
     public function handle($request, Closure $next)
     {
-        if (preg_match('/.+\/$/', $request->getRequestUri())) {
-            return Redirect::to(rtrim($request->getRequestUri(), '/'), 301);
+        if(config('laraveloctober.trailingSlash')) {
+            if (!preg_match('/.+\/$/', $request->getRequestUri())) {
+                return Redirect::to(rtrim($request->getRequestUri(), '/').'/', 301);
+            }
+        } else {
+            if (preg_match('/.+\/$/', $request->getRequestUri())) {
+                return Redirect::to(rtrim($request->getRequestUri(), '/'), 301);
+            }
         }
 
         return $next($request);
