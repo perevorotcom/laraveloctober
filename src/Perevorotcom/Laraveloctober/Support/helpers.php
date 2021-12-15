@@ -20,7 +20,7 @@ if (!function_exists('localized_route_url')) {
             $attributes[] = !empty($model->slug) ? $model->slug : @$model->{$model->primaryKey};
         }
 
-        return Localization::getLocalizedURL(null, route($route, $attributes));
+        return Localization::getLocalizedURL(null, route($route, $attributes)).(config('laraveloctober.trailingSlash') ? '/' : '');
     }
 }
 
