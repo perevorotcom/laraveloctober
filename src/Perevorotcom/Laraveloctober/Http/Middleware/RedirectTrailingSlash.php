@@ -7,22 +7,25 @@ use Illuminate\Support\Facades\Redirect;
 
 class RedirectTrailingSlash
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return mixed
-     */
     public function handle($request, Closure $next)
     {
-        if(config('laraveloctober.trailingSlash')) {
-            if (!preg_match('/.+\/$/', $request->getRequestUri())) {
-                return Redirect::to(rtrim($request->getRequestUri(), '/').'/', 301);
+        $url = parse_url($request->getRequestUri());
+
+        if (config('laraveloctober.trailingSlash')) {
+            if (!preg_match('/.+\/$/', $url['path'])) {
+                $url = rtrim($url['path'], '/').'/'.(!empty($url['query']) ? '?'.$url['query'] : '');
+
+                header('HTTP/1.1 301 Moved Permanently');
+                header('Location: '.$url);
+                exit;
             }
         } else {
-            if (preg_match('/.+\/$/', $request->getRequestUri())) {
-                return Redirect::to(rtrim($request->getRequestUri(), '/'), 301);
+            if (preg_match('/.+\/$/', $url['path'])) {
+                $url = rtrim($url['path'], '/').(!empty($url['query']) ? '?'.$url['query'] : '');
+
+                header('HTTP/1.1 301 Moved Permanently');
+                header('Location: '.$url);
+                exit;
             }
         }
 
