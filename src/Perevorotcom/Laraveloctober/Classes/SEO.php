@@ -61,9 +61,27 @@ class SEO extends SEOTools
                 $q->where('seo_url_type', 1);
                 $q->whereIn('url_mask', $this->getPossibleUrl());
             });
-        })->where('is_active', '=', true)->orderByRaw("FIELD(url_mask, '".implode("', '", $this->getPossibleUrl())."')")->first();
+        })->where('is_active', '=', true)->orderByRaw("FIELD(url_mask, '".implode("', '", $this->getPossibleUrl())."')")->get();
 
-        if ($tag) {
+        $url = Request::path();
+
+        if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
+            $url = ltrim($url, '/'.Localization::getCurrentLocale());
+        }
+
+        $url = '/'.trim($url, '/');
+
+        foreach ($tags as $item) {
+            if ($item->seo_url_type == 1 && $item->url_mask == $url) {
+                $tag = $item;
+            }
+        }
+
+        if (empty($tag)) {
+            $tag = $tags->first();
+        }
+
+        if (!empty($tag)) {
             if (!empty(trim($tag->title))) {
                 if (config('seotools.clearDefaults', false)) {
                     config(['seotools.meta.defaults.title' => false]);
