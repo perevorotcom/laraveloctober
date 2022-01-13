@@ -48,7 +48,7 @@ class SEO extends SEOTools
             $this->route = !empty(Request::route()) ? Request::route()->getName() : null;
         }
 
-        $tag = SeoTags::where(function ($q) {
+        $tags = SeoTags::where(function ($q) {
             $q->where(function ($q) {
                 if ($this->route) {
                     $q->where('seo_url_type', 0);
