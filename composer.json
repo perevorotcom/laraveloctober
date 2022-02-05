@@ -16,7 +16,7 @@
         "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.4",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.75",
+        "laravel/framework": "^8.43",
         "laravel/tinker": "^2.5",
         "artesaos/seotools": "^0.19",
         "mcamara/laravel-localization": "^1.6",
