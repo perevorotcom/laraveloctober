@@ -65,11 +65,12 @@ class SEO extends SEOTools
 
         $url = Request::path();
 
-        if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
-            $url = ltrim($url, '/'.Localization::getCurrentLocale());
-        }
-
+        $url = Request::path();
         $url = '/'.trim($url, '/');
+
+        if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
+            $url = substr($url, 3);
+        }
 
         foreach ($tags as $item) {
             if ($item->seo_url_type == 1 && $item->url_mask == $url) {
@@ -200,12 +201,11 @@ class SEO extends SEOTools
         }
 
         $url = Request::path();
+        $url = '/'.trim($url, '/');
 
         if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
-            $url = ltrim($url, '/'.Localization::getCurrentLocale());
+            $url = substr($url, 3);
         }
-
-        $url = '/'.trim($url, '/');
 
         $urls = [$url];
         $segments = preg_split("/[\/,-]+/", $url);
