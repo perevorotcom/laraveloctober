@@ -11,7 +11,7 @@ class RedirectTrailingSlash
     {
         $url = parse_url($request->getRequestUri());
 
-        if ($url && $url['path'] != '/') {
+        if ($url && !empty($url['path']) && $url['path'] != '/') {
             if (config('laraveloctober.trailingSlash')) {
                 if (!preg_match('/.+\/$/', $url['path'])) {
                     $url = rtrim($url['path'], '/').'/'.(!empty($url['query']) ? '?'.$url['query'] : '');
