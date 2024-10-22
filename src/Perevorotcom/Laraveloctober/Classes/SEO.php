@@ -17,6 +17,7 @@ class SEO extends SEOTools
         'head' => [],
         'body_top' => [],
         'body_bottom' => [],
+        'h1' => [],
     ];
 
     private $route;
@@ -40,6 +41,13 @@ class SEO extends SEOTools
     public function bodyBottom()
     {
         return $this->output('body_bottom');
+    }
+
+    public function h1()
+    {
+        $this->parseTags();
+        
+        return $this->output('h1');
     }
 
     private function parseTags()
@@ -143,6 +151,10 @@ class SEO extends SEOTools
 
             if (!empty(trim($tag->meta_tags))) {
                 array_push($this->external['head'], $tag->meta_tags);
+            }
+
+            if (!empty($tag->h1)) {
+                array_push($this->external['h1'], $this->parseTemplate($tag->h1));
             }
         }
     }
