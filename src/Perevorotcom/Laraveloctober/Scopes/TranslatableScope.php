@@ -16,30 +16,30 @@ class TranslatableScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (!$model->ignoreTranslated && !empty($model->getPrimatyTranslatableMutators())) {
+        if (!$model->ignoreTranslated && !empty($model->getPrimaryTranslatableMutators())) {
             if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
                 if (empty($model->table)) {
-                    abort(500, 'Для `'.get_class($model).'` не указана переменная $table');
+                    abort(500, 'Для `' . get_class($model) . '` не указана переменная $table');
                 }
 
-                $builder->select($model->table.'.*');
-                $builder->join($model->translationIndexesTable, $model->table.'.id', '=', $model->translationIndexesTable.'.model_id');
+                $builder->select($model->table . '.*');
+                $builder->join($model->translationIndexesTable, $model->table . '.id', '=', $model->translationIndexesTable . '.model_id');
 
                 $builder->where(function ($q) use ($model) {
-                    $q->where($model->translationIndexesTable.'.model_type', $model->backendModel);
-                    $q->where($model->translationIndexesTable.'.locale', Localization::getCurrentLocale());
+                    $q->where($model->translationIndexesTable . '.model_type', $model->backendModel);
+                    $q->where($model->translationIndexesTable . '.locale', Localization::getCurrentLocale());
 
-                    foreach ($model->getPrimatyTranslatableMutators() as $column) {
+                    foreach ($model->getPrimaryTranslatableMutators() as $column) {
                         $q->where(function ($q) use ($column, $model) {
-                            $q->where($model->translationIndexesTable.'.item', $column);
-                            $q->where($model->translationIndexesTable.'.value', '!=', '');
+                            $q->where($model->translationIndexesTable . '.item', $column);
+                            $q->where($model->translationIndexesTable . '.value', '!=', '');
                         });
                     }
                 });
             } else {
-                foreach ($model->getPrimatyTranslatableMutators() as $column) {
-                    $builder->where($model->table.'.'.$column, '!=', '');
-                    $builder->whereNotNull($model->table.'.'.$column);
+                foreach ($model->getPrimaryTranslatableMutators() as $column) {
+                    $builder->where($model->table . '.' . $column, '!=', '');
+                    $builder->whereNotNull($model->table . '.' . $column);
                 }
             }
         }

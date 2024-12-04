@@ -2,12 +2,17 @@
 
 namespace Perevorotcom\Laraveloctober\Models;
 
+use Cache;
+use Localization;
+
 class SystemSetting extends \LaraveloctoberModel
 {
     use \TranslatableTrait;
     use \AttachmentsTrait;
 
     protected $table = 'system_settings';
+
+    protected $withoutTranslations = true;
 
     public $instance;
     public $backendModel;
@@ -34,6 +39,22 @@ class SystemSetting extends \LaraveloctoberModel
         return $this;
     }
 
+    public function parseTranslated($attributes)
+    {
+        if ($attributes && !empty($attributes->attribute_data)) {
+            $attributes = json_decode($attributes->attribute_data);
+            $this->setAttributes($attributes);
+
+            $data = json_decode($this->value);
+
+            foreach ($data as $key => $value) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+        return $this;
+    }
+
     private function setAttributes($attributes)
     {
         foreach ($attributes as $method => $value) {
@@ -43,16 +64,23 @@ class SystemSetting extends \LaraveloctoberModel
 
     public function scopeInstance()
     {
-        $attributes = [
-            'backendModel' => $this->backendModel,
-            'translatable' => $this->translatable,
-            'attachments' => $this->attachments,
-        ];
+        return Cache::rememberForever('settings_' . $this->instance, function () {
+            $attributes = [
+                'backendModel' => $this->backendModel,
+                'translatable' => $this->translatable,
+                'attachments' => $this->attachments,
+            ];
 
-        $setting = new SystemSetting($attributes);
+            $setting = new SystemSetting($attributes);
 
-        $instance = $setting->where('item', $this->instance)->first();
+            $instance = $setting->where('item', $this->instance)->first();
+            $translated = Localization::getDefaultLocale() !== Localization::getCurrentLocale();
 
-        return $instance ? $instance->parse($attributes) : [];
+            if ($translated) {
+                $attributes = SystemTranslationAttribute::select('attribute_data')->where('model_type', $this->backendModel)->where('locale', Localization::getCurrentLocale())->first();
+            }
+
+            return $instance ? $instance->{$translated ? 'parseTranslated' : 'parse'}($attributes) : [];
+        });
     }
 }

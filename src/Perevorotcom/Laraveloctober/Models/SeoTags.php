@@ -4,8 +4,7 @@ namespace Perevorotcom\Laraveloctober\Models;
 
 class SeoTags extends \LaraveloctoberModel
 {
-    use \TranslatableTrait;
-    use \AttachmentsTrait;
+    use \ModelTrait;
 
     public $table = 'perevorot_seo_seo';
 

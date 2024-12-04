@@ -13,10 +13,10 @@ trait Longread
         $blocks = $this->getLongreadValue($mutator);
 
         if (!empty($blocks)) {
-            if($type == 'json') {
+            if ($type == 'json') {
                 return $blocks;
             }
-            
+
             $this->longreadProccessFiles($blocks);
 
             $html = [];
@@ -25,7 +25,7 @@ trait Longread
                 $parsed = $this->processBlockClass($block, $key, sizeof($blocks));
 
                 if (!empty($parsed)) {
-                    $parsed = str_replace('img src="/storage/app', 'img src="'.config('laraveloctober.storageUrl'), $parsed);
+                    $parsed = str_replace('img src="/storage/app', 'img src="' . config('laraveloctober.storageUrl'), $parsed);
 
                     $html[] = $parsed;
                 }
@@ -39,7 +39,7 @@ trait Longread
 
     private function processBlockClass($block, $key, $total)
     {
-        $namespace = 'App\Longread\\'.ucfirst(Str::camel($block->alias));
+        $namespace = 'App\Longread\\' . ucfirst(Str::camel($block->alias));
 
         if (!class_exists($namespace)) {
             return [];
@@ -94,7 +94,7 @@ trait Longread
 
     private function getLongreadValue($mutator)
     {
-        $value = !empty($this->attributes[$mutator.'_'.Localization::getCurrentLocale()]) ? json_decode($this->attributes[$mutator.'_'.Localization::getCurrentLocale()]) : '';
+        $value = !empty($this->attributes[$mutator . '_' . Localization::getCurrentLocale()]) ? json_decode($this->attributes[$mutator . '_' . Localization::getCurrentLocale()]) : '';
 
         $value = empty($value) && !empty($this->attributes[$mutator]) ? json_decode($this->attributes[$mutator]) : $value;
 

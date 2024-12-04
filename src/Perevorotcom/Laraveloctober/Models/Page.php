@@ -10,9 +10,8 @@ use Route;
 
 class Page extends \LaraveloctoberModel
 {
-    use \TranslatableTrait;
+    use \ModelTrait;
     use \LongreadTrait;
-    use \AttachmentsTrait;
 
     public $table = 'perevorot_page_page';
     public $backendModel = 'Perevorot\Page\Models\Page';
@@ -142,17 +141,17 @@ class Page extends \LaraveloctoberModel
             $locales = array_diff($locales, [$defaultLocale]);
         }
 
-        $path = trim(request()->path(), '/').'/';
+        $path = trim(request()->path(), '/') . '/';
 
         foreach ($locales as $locale) {
-            if (Str::startsWith($path, $locale.'/')) {
+            if (Str::startsWith($path, $locale . '/')) {
                 $path = substr($path, 3);
             }
         }
 
         $path = trim($path, '/');
 
-        return '/'.$path;
+        return '/' . $path;
     }
 
     public function getCurrentAttribute()
@@ -161,7 +160,7 @@ class Page extends \LaraveloctoberModel
 
         $page = Page::enabled()->where(function ($q) use ($slug) {
             $q->where('route_name', Route::currentRouteName());
-            $q->whereRaw('(route_id '.($slug ? '="'.$slug.'"' : ' IS NULL OR route_id=0').')');
+            $q->whereRaw('(route_id ' . ($slug ? '="' . $slug . '"' : ' IS NULL OR route_id=0') . ')');
         })->orWhere(function ($q) {
             $q->whereRaw('BINARY url=?', [$this->path]);
         })->first();

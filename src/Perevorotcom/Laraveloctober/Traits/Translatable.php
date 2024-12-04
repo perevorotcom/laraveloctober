@@ -26,7 +26,7 @@ trait Translatable
         return !empty($this->translatable) && in_array($mutator, $this->getTranslatableColumns());
     }
 
-    public function getPrimatyTranslatableMutators()
+    public function getPrimaryTranslatableMutators()
     {
         if (!empty($this->translatable)) {
             $primaryColumns = Arr::where($this->translatable, function ($column) {
@@ -74,31 +74,24 @@ trait Translatable
         if (Localization::getDefaultLocale() != $locale) {
             if (!array_key_exists($locale, $this->translatableData)) {
                 if (empty($this->backendModel)) {
-                    abort(500, 'Для `'.get_class($this).'` не указана переменная backendModel');
+                    abort(500, 'Для `' . get_class($this) . '` не указана переменная backendModel');
                 }
 
-                $translation = DB::table($this->translationAttributesTable)->where('model_type', $this->backendModel)->where('model_id', $this->id)->where('locale', $locale)->first();
+                $translation = $this->translations ? $this->translations->first(function ($item) use ($mutator) {
+                    return $item->item == $mutator;
+                }) : null;
 
                 if ($translation) {
-                    $this->translatableData[$locale] = json_decode($translation->attribute_data);
-                } else {
-                    $this->translatableData[$locale] = false;
+                    $this->forcedLocale = null;
+                    $return = $translation->value;
+
+                    if (!empty($this->richeditors) && in_array($mutator, $this->richeditors)) {
+                        $return = str_replace('img src="/storage/app', 'img src="' . config('laraveloctober.storageUrl'), $return);
+                    }
+
+                    return $return;
                 }
-
-                $this->forcedLocale = null;
             }
-
-            if (!empty($this->richeditors) && in_array($mutator, $this->richeditors)) {
-                $this->translatableData[$locale]->{$mutator} = str_replace('img src="/storage/app', 'img src="'.config('laraveloctober.storageUrl'), $this->translatableData[$locale]->{$mutator});
-            }
-
-            $return = !empty($this->translatableData[$locale]->{$mutator}) ? $this->translatableData[$locale]->{$mutator} : '';
-
-            if (empty($return) && !empty($this->getFallbackTranslatableMutators())) {
-                $return = !empty($this->attributes[$mutator]) ? $this->attributes[$mutator] : '';
-            }
-
-            return $return;
         }
 
         $this->forcedLocale = null;
