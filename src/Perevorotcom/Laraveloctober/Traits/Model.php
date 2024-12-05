@@ -8,6 +8,8 @@ use Localization;
 
 trait Model
 {
+    use \TranslatableTrait;
+
     public function __call($mutator, $attributes)
     {
         if ($this->isAttachmentMutator($mutator)) {
