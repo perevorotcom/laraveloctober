@@ -30,7 +30,7 @@ class SEO extends SEOTools
         $this->parseExternal();
         $this->parseTags();
 
-        return SEOTools::generate().$this->output('head');
+        return SEOTools::generate() . $this->output('head');
     }
 
     public function bodyTop()
@@ -46,7 +46,7 @@ class SEO extends SEOTools
     public function h1()
     {
         $this->parseTags();
-        
+
         return $this->output('h1');
     }
 
@@ -69,12 +69,12 @@ class SEO extends SEOTools
                 $q->where('seo_url_type', 1);
                 $q->whereIn('url_mask', $this->getPossibleUrl());
             });
-        })->where('is_active', '=', true)->orderByRaw("FIELD(url_mask, '".implode("', '", $this->getPossibleUrl())."')")->get();
+        })->where('is_active', '=', true)->orderByRaw("FIELD(url_mask, '" . implode("', '", $this->getPossibleUrl()) . "')")->get();
 
         $url = Request::path();
 
         $url = Request::path();
-        $url = '/'.trim($url, '/');
+        $url = '/' . trim($url, '/');
 
         if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
             $url = substr($url, 3);
@@ -141,7 +141,7 @@ class SEO extends SEOTools
                 $image = $this->parseTemplate($tag->image);
 
                 if (!Str::startsWith($image, 'http')) {
-                    $image = config('app.url').$image;
+                    $image = config('app.url') . $image;
                 }
 
                 SEOTools::opengraph()->addImage($image);
@@ -154,7 +154,7 @@ class SEO extends SEOTools
             }
 
             if (!empty($tag->h1)) {
-                array_push($this->external['h1'], $this->parseTemplate($tag->h1));
+                $this->external['h1'] =  $this->parseTemplate($tag->h1);
             }
         }
     }
@@ -203,7 +203,7 @@ class SEO extends SEOTools
 
     private function output($type)
     {
-        return implode('', $this->external[$type]);
+        return is_array($this->external[$type]) ? implode('', $this->external[$type]) : $this->external[$type];
     }
 
     private function getPossibleUrl()
@@ -213,7 +213,7 @@ class SEO extends SEOTools
         }
 
         $url = Request::path();
-        $url = '/'.trim($url, '/');
+        $url = '/' . trim($url, '/');
 
         if (Localization::getDefaultLocale() != Localization::getCurrentLocale()) {
             $url = substr($url, 3);
@@ -239,7 +239,7 @@ class SEO extends SEOTools
         array_pop($segments);
 
         while ($i > 1) {
-            $urls[] = implode('/', $segments).'/*';
+            $urls[] = implode('/', $segments) . '/*';
             array_pop($segments);
             --$i;
         }
@@ -275,7 +275,7 @@ class SEO extends SEOTools
         extract($__data, EXTR_SKIP);
 
         try {
-            eval('?'.'>'.$php);
+            eval('?' . '>' . $php);
         } catch (Exception $e) {
             while (ob_get_level() > $obLevel) {
                 ob_end_clean();
