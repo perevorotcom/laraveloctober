@@ -45,9 +45,13 @@ class SystemSetting extends \LaraveloctoberModel
             $attributes = json_decode($attributes->attribute_data);
             $this->setAttributes($attributes);
 
-            $data = $attributes;
+            $data = json_decode($this->value);
 
             foreach ($data as $key => $value) {
+                $this->attributes[$key] = $value;
+            }
+
+            foreach ($attributes as $key => $value) {
                 $this->attributes[$key] = $value;
             }
         }
