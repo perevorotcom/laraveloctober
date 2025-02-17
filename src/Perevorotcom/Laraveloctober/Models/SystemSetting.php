@@ -45,7 +45,7 @@ class SystemSetting extends \LaraveloctoberModel
             $attributes = json_decode($attributes->attribute_data);
             $this->setAttributes($attributes);
 
-            $data = json_decode($this->value);
+            $data = $attributes;
 
             foreach ($data as $key => $value) {
                 $this->attributes[$key] = $value;
@@ -64,7 +64,7 @@ class SystemSetting extends \LaraveloctoberModel
 
     public function scopeInstance()
     {
-        return Cache::rememberForever('settings_' . $this->instance, function () {
+        return Cache::rememberForever('settings_' . $this->instance . '_' . Localization::getCurrentLocale(), function () {
             $attributes = [
                 'backendModel' => $this->backendModel,
                 'translatable' => $this->translatable,
