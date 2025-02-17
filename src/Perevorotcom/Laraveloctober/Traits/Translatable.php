@@ -81,6 +81,27 @@ trait Translatable
                     return $item->item == $mutator;
                 }) : null;
 
+                if (!empty($this->attributeTranslate) && !$translation) {
+                    if (!$this->translationAttributes) {
+                        $this->translationAttributes = DB::table('rainlab_translate_attributes')
+                            ->select('attribute_data')
+                            ->where('model_id', $this->id)
+                            ->where('model_type', $this->backendModel)
+                            ->where('locale', $locale)
+                            ->first();
+                    }
+
+                    if (!empty($this->translationAttributes->attribute_data)) {
+                        $array = json_decode($this->translationAttributes->attribute_data, true);
+
+                        if (!empty($array[$mutator])) {
+                            $this->forcedLocale = null;
+
+                            return $array[$mutator];
+                        }
+                    }
+                }
+
                 if ($translation) {
                     $this->forcedLocale = null;
                     $return = $translation->value;
