@@ -10,6 +10,8 @@ class SeoTags extends \LaraveloctoberModel
 
     public $backendModel = 'Perevorot\Seo\Models\Seo';
 
+    public $attributeTranslate = true;
+
     public $translatable = [
         'title',
         'description',
